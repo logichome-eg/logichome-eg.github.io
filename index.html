@@ -384,8 +384,8 @@ const LEAD={name:'',phone:'',loc:''};
 function toEn(s){return String(s).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d));}
 function sendSheet(data){if(!SHEET_URL)return;try{fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(data)}).catch(()=>{});}catch(e){}}
 function gateSubmit(){
-  const name=$('gName').value.trim(),phone=toEn($('gPhone').value).replace(/[^0-9]/g,''),loc=$('gLoc').value.trim();
-  if(!/^01[0125][0-9]{8}$/.test(phone)){$('gErr').textContent='اكتب رقم موبايل مصري صحيح (١١ رقم يبدأ بـ 01)';return;}
+  const name=$('gName').value.trim(),loc=$('gLoc').value.trim();let phone=toEn($('gPhone').value).replace(/[^0-9]/g,'');if(phone.startsWith('0020'))phone='0'+phone.slice(4);else if(phone.startsWith('20')&&phone.length===12)phone='0'+phone.slice(2);else if(phone.length===10&&phone.startsWith('1'))phone='0'+phone;
+  if(phone.length<6){$('gErr').textContent='اكتب رقم التليفون';return;}
   if(!loc){$('gErr').textContent='اكتب مكان الشقة';return;}
   $('gErr').textContent='';Object.assign(LEAD,{name,phone,loc});
   try{localStorage.setItem('lh_lead',JSON.stringify(LEAD));}catch(e){}

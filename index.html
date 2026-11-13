@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="احسب تكلفة تشطيب شقتك بند بند في دقيقة — LOGIC HOME للتشطيبات والتصميم الداخلي. معاينة مجانية.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LOGIC HOME">
+<meta property="og:title" content="احسب تكلفة تشطيب شقتك — LOGIC HOME">
+<meta property="og:description" content="حاسبة تشطيب بند بند: سباكة، كهرباء، محارة، سيراميك، دهانات وأكتر. اعرف التكلفة فوراً — والمعاينة مجانية.">
+<meta property="og:image" content="https://logichome-eg.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://logichome-eg.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f06429">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>LOGIC HOME | احسب تكلفة تشطيب شقتك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fefaf9;--card:#fff;--card2:#faf4f1;--line:#efe4de;--or:#f06429;--or2:#d9531c;--txt:#1f1a17;--mut:#7d736d;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;background-image:radial-gradient(circle at 85% -10%,rgba(240,100,41,.10),transparent 45%)}
+.wrap{max-width:580px;margin:0 auto;padding:22px 16px 40px}
+header{text-align:center;margin-bottom:20px}
+.logo{display:inline-flex;flex-direction:column;align-items:center;gap:8px}
+.logo img{width:74px}
+.logo div{font-weight:800;letter-spacing:4px;font-size:18px;direction:ltr}
+header h1{font-size:21px;margin-top:14px;line-height:1.5}
+header p{color:var(--mut);font-size:14px;margin-top:4px}
+.view{display:none;animation:fade .3s}.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 6px 24px rgba(60,30,10,.06);margin-bottom:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;font-family:inherit;color:var(--txt);transition:.2s;position:relative}
+.tile .ic{font-size:28px;display:block;margin-bottom:6px}
+.tile b{font-size:15px}
+.tile small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
+.tile.on{border-color:var(--or)}
+.tile.on:hover{background:rgba(240,100,41,.06)}
+.tile.soon{opacity:.5;cursor:default}
+.tile .badge{position:absolute;top:8px;left:8px;font-size:10px;background:var(--line);color:var(--mut);padding:1px 8px;border-radius:20px}
+.tile.on .badge{background:var(--or);color:#fff}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.backbtn{background:none;border:1.5px solid var(--line);border-radius:12px;padding:6px 12px;font-family:inherit;color:var(--mut);cursor:pointer;font-size:14px}
+.top h2{font-size:19px}
+.sec{font-size:15px;font-weight:700;color:var(--or);margin-bottom:10px}
+.counter{display:flex;align-items:center;justify-content:space-between;background:var(--card2);border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:9px}
+.counter .l{font-size:15px;font-weight:600}
+.counter .l small{display:block;color:var(--mut);font-size:12px;font-weight:400}
+.counter .c{display:flex;align-items:center;gap:12px}
+.counter button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--or);background:#fff;color:var(--or);font-size:20px;cursor:pointer;font-family:inherit;line-height:1}
+.counter b{min-width:22px;text-align:center;font-size:18px}
+.fixed{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);padding:4px 4px 10px}
+.q{font-size:14px;font-weight:600;margin:4px 0 8px}
+.opts{display:grid;gap:8px;margin-bottom:12px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{background:var(--card2);border:1.5px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;text-align:right;color:var(--txt);font-family:inherit;font-size:14px;font-weight:600;transition:.2s}
+.opt small{display:block;color:var(--mut);font-size:12px;font-weight:400}
+.opt.sel{border-color:var(--or);background:rgba(240,100,41,.07)}
+.opt.sel::after{content:"✓";float:left;color:var(--or);font-weight:800}
+.area{display:flex;align-items:center;gap:10px;margin-bottom:8px}.area input{flex:1;background:var(--card2);border:1.5px solid var(--line);color:var(--txt);font-family:inherit;font-size:26px;font-weight:800;padding:8px 12px;border-radius:14px;text-align:center;width:100%}.area input:focus{outline:none;border-color:var(--or)}.area span{color:var(--mut)}input[type=range]{width:100%;accent-color:var(--or);margin-bottom:12px}
+.pin{width:120px;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:16px;font-weight:700;text-align:center;color:var(--txt)}.pin:focus{outline:none;border-color:var(--or)}
+.specs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.specs span{font-size:12px;background:rgba(240,100,41,.08);color:var(--or2);padding:3px 10px;border-radius:20px}
+.rows{display:grid;gap:6px}
+.row{display:flex;justify-content:space-between;gap:10px;font-size:14px;background:var(--card2);padding:10px 12px;border-radius:10px}
+.row .k small{display:block;color:var(--mut);font-size:12px}
+.row .v{font-weight:700;white-space:nowrap;text-align:left}
+.row.muted .v{color:var(--mut);font-weight:600;font-size:13px}
+.row.sub{background:rgba(240,100,41,.08);font-weight:800}
+.row.fee{background:#fff;border:1.5px dashed rgba(240,100,41,.5)}
+.total{margin-top:12px;background:var(--or);color:#fff;border-radius:14px;padding:14px;text-align:center}
+.total .l{font-size:13px;opacity:.9}
+.total .n{font-size:26px;font-weight:800;line-height:1.5}
+.note{font-size:12px;color:var(--mut);line-height:1.8;background:rgba(240,100,41,.05);border:1px solid rgba(240,100,41,.22);border-radius:12px;padding:12px;margin-top:12px}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:13px;color:var(--mut);margin-bottom:5px}
+.field input{width:100%;background:var(--card2);border:1.5px solid var(--line);color:var(--txt);font-family:inherit;font-size:15px;padding:12px 14px;border-radius:12px}
+.field input:focus{outline:none;border-color:var(--or)}
+.wa{display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;text-decoration:none;font-weight:800;font-size:16px;padding:15px;border-radius:14px;margin-top:6px}
+.wa svg{width:24px;height:24px}
+.wa.dis{opacity:.45;pointer-events:none}
+.phone{text-align:center;color:var(--mut);font-size:13px;margin-top:8px;direction:ltr}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.trust div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;font-size:12px;color:var(--mut)}
+.trust b{display:block;color:var(--or);font-size:18px}
+footer{text-align:center;color:#a39a94;font-size:12px;margin-top:22px;padding-bottom:70px}
+.tile.added{background:rgba(240,100,41,.07)}
+.tile .amt{display:block;margin-top:4px;font-size:12px;color:var(--or2);font-weight:700}
+.bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(60,30,10,.08);padding:10px 16px;display:none;z-index:9}
+.bar .in{max-width:580px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.bar .t{flex:1;font-size:13px;color:var(--mut)}
+.bar .t b{display:block;font-size:18px;color:var(--txt)}
+.btn{border:none;border-radius:12px;padding:12px 16px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.btn.pri{background:var(--or);color:#fff}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--mut)}
+.btn.full{width:100%;margin-top:8px}
+.hint2{font-size:13px;color:var(--mut);text-align:center;margin-top:6px}
+.empty{text-align:center;color:var(--mut);padding:20px 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><img src="data:image/png;base64,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" alt="LOGIC HOME"><div>LOGIC HOME</div></div>
+    <h1>احسب تكلفة تشطيب شقتك بند بند</h1>
+    <p>اختار البند، حدد اللي محتاجه، وشوف التكلفة فوراً</p>
+  </header>
+
+  <div class="view active" id="v-gate">
+    <div class="card">
+      <div class="sec">قبل ما تبدأ — عرّفنا بيك</div>
+      <div class="hint2" style="text-align:right;margin:0 0 12px">اكتب بياناتك عشان نقدر نتابع معاك ونبعتلك عرض سعر مفصّل.</div>
+      <div class="field"><label>الاسم</label><input id="gName" placeholder="مثال: أحمد محمد" autocomplete="name"></div>
+      <div class="field"><label>رقم التليفون (واتساب) *</label><input id="gPhone" type="tel" inputmode="tel" placeholder="01xxxxxxxxx" autocomplete="tel" dir="ltr" style="text-align:right"></div>
+      <div class="field"><label>مكان الشقة *</label><input id="gLoc" placeholder="مثال: التجمع الخامس — كمبوند ..."></div>
+      <div class="err" id="gErr" style="color:#d33;font-size:13px;min-height:18px"></div>
+      <button class="btn pri full" onclick="gateSubmit()">ابدأ احسب التكلفة ←</button>
+      <div class="hint2">بياناتك مش هتتشارك مع أي حد.</div>
+    </div>
+  </div>
+
+  <div class="view" id="v-menu">
+    <div class="grid">
+      <button class="tile on" data-k="tash" onclick="openItem('tash')"><span class="badge">متاح</span><span class="ic">🏗️</span><b>تشوينات بداية العمل</b><small>أسمنت ورمل وونش</small></button>
+      <button class="tile on" data-k="plumb" onclick="openItem('plumb')"><span class="badge">متاح</span><span class="ic">🚿</span><b>السباكة</b><small>تأسيس وعزل وصرف تكييف</small></button>
+      <button class="tile on" data-k="elec" onclick="openItem('elec')"><span class="badge">متاح</span><span class="ic">⚡</span><b>تأسيس الكهرباء</b><small>مصنعية وبضاعة</small></button>
+      <button class="tile on" data-k="freon" onclick="openItem('freon')"><span class="badge">متاح</span><span class="ic">❄️</span><b>الفريون</b><small>تأسيس مواسير التكييف</small></button>
+      <button class="tile on" data-k="plaster" onclick="openItem('plaster')"><span class="badge">متاح</span><span class="ic">🧱</span><b>المحارة</b><small>حوائط وسقف بالمصيص</small></button>
+      <button class="tile on" data-k="cer" onclick="openItem('cer')"><span class="badge">متاح</span><span class="ic">◻️</span><b>السيراميك</b><small>أرضيات وحوائط</small></button>
+      <button class="tile on" data-k="paint" onclick="openItem('paint')"><span class="badge">متاح</span><span class="ic">🎨</span><b>الدهانات</b><small>مصنعية وخامات</small></button>
+      <button class="tile on" data-k="gb" onclick="openItem('gb')"><span class="badge">متاح</span><span class="ic">💡</span><b>الجبس بورد</b><small>توريد وتركيب</small></button>
+      <button class="tile on" data-k="carp" onclick="openItem('carp')"><span class="badge">متاح</span><span class="ic">🚪</span><b>النجارة والأبواب</b><small>أبواب داخلية ومصفح</small></button>
+      <button class="tile on" data-k="alum" onclick="openItem('alum')"><span class="badge">متاح</span><span class="ic">🪟</span><b>الألوميتال</b><small>شبابيك الحمامات والمطبخ</small></button>
+      <button class="tile on" data-k="efin" onclick="openItem('efin')"><span class="badge">متاح</span><span class="ic">💡</span><b>تشطيب الكهرباء</b><small>مفاتيح وبرايز وإضاءة</small></button>
+      <button class="tile on" data-k="pfin" onclick="openItem('pfin')"><span class="badge">متاح</span><span class="ic">🛁</span><b>تشطيب السباكة</b><small>أطقم وخلاطات</small></button>
+      <button class="tile on" data-k="decor" onclick="openItem('decor')"><span class="badge">متاح</span><span class="ic">✨</span><b>الديكور</b><small>بالاتفاق على التفاصيل</small></button>
+    </div>
+  </div>
+
+  <div class="view" id="v-item">
+    <div class="top"><button class="backbtn" onclick="openItem('menu')">→ البنود</button><h2 id="iTitle"></h2></div>
+    <div class="card"><div class="sec">حدد احتياجاتك</div><div id="iCtrl"></div></div>
+    <div class="card">
+      <div class="sec">تفاصيل التكلفة</div>
+      <div class="rows" id="rows"></div>
+      <div class="total"><div class="l" id="totL"></div><div class="n" id="tot"></div></div>
+      <div class="note">✅ كل الأسعار تكلفة فعلية بفواتير — ونسبة إشراف LOGIC HOME من ١٥٪ لـ ٢٠٪ بتتحسب على الإجمالي.<br>⚠️ أسعار البضاعة تقريبية بدقة ٩٥٪ حسب السوق — السعر النهائي بعد المعاينة، و<b>المعاينة مجانية</b>.</div>
+    </div>
+    <button class="btn pri full" id="addBtn" onclick="addItem()"></button>
+    <button class="btn ghost full" id="remBtn" onclick="remItem()" style="display:none">شيل البند من الإجمالي</button>
+    <div class="hint2">ضيف كل البنود اللي محتاجها، وفي الآخر هتلاقي الإجمالي الكلي</div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="view" id="v-sum">
+    <div class="top"><button class="backbtn" onclick="openItem('menu')">→ البنود</button><h2>🧾 إجمالي البنود</h2></div>
+    <div class="card">
+      <div class="sec">البنود اللي اخترتها</div>
+      <div class="rows" id="sRows"></div>
+      <div class="total"><div class="l">الإجمالي الكلي شامل الإشراف</div><div class="n" id="sTot"></div></div>
+      <div class="note">✅ كل الأسعار تكلفة فعلية بفواتير — ونسبة إشراف LOGIC HOME من ١٥٪ لـ ٢٠٪ بتتحسب على الإجمالي.<br>⚠️ أسعار البضاعة تقريبية بدقة ٩٥٪ حسب السوق — السعر النهائي بعد المعاينة، و<b>المعاينة مجانية</b>.</div>
+    </div>
+    <div class="card">
+      <div class="sec">ابعتلنا التفاصيل واحجز معاينة</div>
+      <div class="field"><label>الاسم</label><input id="name" placeholder="مثال: أحمد محمد" oninput="summary()"></div>
+      <div class="field"><label>المنطقة / الكمبوند</label><input id="loc" placeholder="مثال: التجمع الخامس" oninput="summary()"></div>
+      <a class="wa dis" id="wa" href="#" target="_blank" rel="noopener" onclick="logEstimate()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>ابعت الإجمالي على واتساب</a>
+      <div class="phone">+20 100 852 0389</div>
+    </div>
+  </div>
+
+  <div class="trust"><div><b>✓</b>معاينة مجانية</div><div><b>✓</b>عقد مكتوب بالبنود</div><div><b>✓</b>ضمان على الشغل</div></div>
+  <footer>© LOGIC HOME — تشطيبات وتصميم داخلي</footer>
+</div>
+<div class="bar" id="bar"><div class="in"><div class="t" id="barT"></div><button class="btn pri" onclick="openItem('sum')">عرض الإجمالي ←</button></div></div>
+
+<script>
+/* ===================== الإعدادات (تكلفة فعلية) ===================== */
+const WHATSAPP = "201008520389";
+// ===== رابط Google Sheets (Apps Script Web App) — حط الرابط هنا =====
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzlnDZhC7hMNHtbHBavSYL6cpDdkjZKiE53xA41j6MyMcBJ_gTL9mDev4CwTX9tR2g/exec";
+const SUP_MIN = 0.15, SUP_MAX = 0.20;     // نسبة الإشراف
+
+const PLUMB = {
+  point:1700, bathPoints:4, kitchenPoints:3, insul:700, acDrain:700,
+  materials:{1:13000,2:19000,3:26000}, materialsExtraBath:7000,
+  tank:7500, concealedInstall:700
+};
+const ELEC = [   // مقطوعية حسب الشقة (شامل ريسيبشن ومطبخ)
+  {name:"غرفتين + حمام أو حمامين", labor:17000, mat:28000},
+  {name:"٣ غرف + حمامين",           labor:18000, mat:45000},
+  {name:"٣ غرف + ٣ حمامات",         labor:20000, mat:49000}
+];
+const TASH = {
+  winch:4500, cementTon:4500, cementNoPlaster:1, cementPlaster:4,
+  gypsumBags:10, gypsumBag:130, whiteCement:350, sand:900
+};
+const PLASTER = { m2:90, wallFactor:2.5, ceilFactorMasis:2, ceilFactorFlat:1 }; // مصنعية فقط
+const FREON = { m:950, mPerUnit:8 };   // شامل مصنعية وخامات
+const CARP = { types:{turk:{t:'مستورد تركي',p:8000},wpc:{t:'WPC',p:9500},custom:{t:'عمولة',p:12000}}, cladding:1500, armored:13000 };
+const PFIN = { bath:25000, kitchen:10000 }; // بضاعة متوسط — المصنعية في التأسيس
+const EFIN = { labor:17000, venus:13000, schneider:4500, magnetic:2900, spotMin:90, spotMax:150, sound:4500 }; // ثابت لكل الشقق
+const ALUM = { m2:4000, perBath:1, kitchen:1 }; // قطاع PS الصغير
+const GB = { flat:380, linear:270 }; // توريد وتركيب
+const PAINT = { labor:100, wallFactor:2, gypCeil:1.5, matM2:230 }; // خامات بالمتر من مساحة الأرضية
+const CER = { labor:170, bathWall:25, kitchenWall:35, cementBag:225, cementM2PerBag:4,
+  sewtexBag:410, sewtexM2PerBag:3, misc:3000, winch:4500, sandM3PerM2:0.1, sandM3:300, waste:0.10 };
+/* =================================================================== */
+const S={baths:2,acs:4,tanks:0,showers:0,elec:0,plaster:1,sand:0,area:130,flat:0,csand:0,pf:0,pw:0,gyp:0,gbF:0,gbL:0,mag:0,spots:0,snd:0,doors:5,dtype:"turk",clad:0,arm:1};
+const LIM={spots:[0,200],rooms:[1,10],doors:[0,30],baths:[1,8],acs:[0,20],tanks:[0,8],showers:[0,8]};
+let cur=null; const ADDED=[];
+const $=id=>document.getElementById(id);
+const n=x=>Math.round(x).toLocaleString('ar-EG');
+const n5=x=>(Math.round(x/500)*500).toLocaleString('ar-EG');
+const counter=(k,l,s)=>`<div class="counter"><div class="l">${l}<small>${s}</small></div><div class="c"><button onclick="chg('${k}',1)">+</button><b id="c_${k}"></b><button onclick="chg('${k}',-1)">−</button></div></div>`;
+const choice=(k,opts,two)=>`<div class="opts ${two?'two':''}">`+opts.map((o,i)=>`<button class="opt ${S[k]===o.v?'sel':''}" onclick="setv('${k}',${typeof o.v==='string'?`'${o.v}'`:o.v})">${o.t}${o.s?`<small>${o.s}</small>`:''}</button>`).join('')+`</div>`;
+
+const ITEMS={
+  plumb:{title:"🚿 بند السباكة",
+    ctrl:()=>counter('baths','عدد الحمامات','٤ نقط سباكة لكل حمام')
+      +`<div class="fixed"><span>المطبخ</span><span>٣ نقط (ثابت)</span></div>`
+      +counter('acs','عدد التكييفات','صرف تكييف لكل جهاز')
+      +`<div class="sec" style="margin-top:14px">قطع الدفن (اختياري)</div>`
+      +counter('tanks','خزان دفن جروهي','٧,٥٠٠ جنيه + ٧٠٠ تركيب')
+      +counter('showers','شاور دفن','السعر حسب النوع وعدد المراحل + ٧٠٠ تركيب'),
+    calc:()=>{const P=PLUMB,pts=S.baths*P.bathPoints+P.kitchenPoints;
+      const mat=P.materials[S.baths]!==undefined?P.materials[S.baths]:P.materials[3]+(S.baths-3)*P.materialsExtraBath;
+      const L=[{k:'تأسيس سباكة',s:`${n(pts)} نقطة × ${n(P.point)}`,v:pts*P.point},
+        {k:'عزل حمامات',s:`${n(S.baths)} حمام × ${n(P.insul)}`,v:S.baths*P.insul},
+        {k:'صرف تكييفات',s:`${n(S.acs)} تكييف × ${n(P.acDrain)}`,v:S.acs*P.acDrain},
+        {k:'بضاعة السباكة (تقريبي)',s:`${n(S.baths)} ${S.baths>1?'حمامات':'حمام'} + مطبخ`,v:mat}];
+      if(S.tanks)L.push({k:'خزان دفن جروهي',s:`${n(S.tanks)} × ${n(P.tank)}`,v:S.tanks*P.tank});
+      const c=S.tanks+S.showers; if(c)L.push({k:'تركيب قطع الدفن',s:`${n(c)} قطعة × ${n(P.concealedInstall)}`,v:c*P.concealedInstall});
+      const extra=S.showers?[{k:`شاور دفن (${n(S.showers)})`,s:'حسب النوع وعدد المراحل',t:'يتحدد مع المهندس'}]:[];
+      return {L,extra,wa:`• الحمامات: ${S.baths} + مطبخ (${pts} نقطة)\n• التكييفات: ${S.acs}\n• خزان دفن: ${S.tanks}\n• شاور دفن: ${S.showers}`};}},
+  elec:{title:"⚡ تأسيس الكهرباء",
+    ctrl:()=>`<div class="q">نوع الشقة (شامل الريسيبشن والمطبخ)</div>`
+      +choice('elec',ELEC.map((e,i)=>({v:i,t:e.name})))
+      +`<div class="q">الخامات</div><div class="specs"><span>بلاستيكات مصطفى محمود</span><span>سلك السويدي</span><span>لوحة فينوس ٢٤ خط على الأقل</span></div>`
+      +`<div class="fixed" style="padding:0"><span>بنعمل كل احتياجاتك في الكهربا على المواصفات العامة وزيادة. المفاتيح والبرايز في مرحلة التشطيب.</span></div>`,
+    calc:()=>{const e=ELEC[S.elec];
+      return {L:[{k:'مصنعية تأسيس الكهرباء',s:e.name,v:e.labor},{k:'بضاعة الكهرباء (تقريبي)',s:'بلاستيكات + سلك + لوحة',v:e.mat}],extra:[],wa:`• الشقة: ${e.name}`};}},
+  plaster:{title:"🧱 بند المحارة",
+    ctrl:()=>`<div class="q">مساحة الشقة</div><div class="area"><input type="number" id="areaIn" value="${S.area}" min="40" max="1000" inputmode="numeric" oninput="setArea(this.value,1)"><span>م²</span></div><input type="range" id="areaR" min="40" max="400" step="5" value="${S.area}" oninput="setArea(this.value,0)">`
+      +`<div class="q">السقف كله هيتعمل جبس بورد فلات؟</div>`
+      +choice('flat',[{v:0,t:'لأ',s:'السقف محارة + مصيص'},{v:1,t:'أيوه فلات',s:'من غير مصيص للسقف'}],1)
+      +`<div class="fixed" style="padding:0"><span>الحوائط بتتحسب مساحة الشقة × ٢.٥ والسقف نفس مساحة الشقة. السعر مصنعية بس — الأسمنت محسوب في التشوينات.</span></div>`,
+    calc:()=>{const P=PLASTER,A=S.area,w=A*P.wallFactor,cf=S.flat?P.ceilFactorFlat:P.ceilFactorMasis;
+      return {L:[{k:'محارة حوائط',s:`${n(w)} م² × ${n(P.m2)}`,v:w*P.m2},
+        {k:S.flat?'محارة سقف':'محارة سقف + مصيص',s:`${n(A)} م² × ${n(P.m2*cf)}`,v:A*P.m2*cf}],extra:[],
+        wa:`• مساحة الشقة: ${A} م²\n• السقف: ${S.flat?'فلات (من غير مصيص)':'محارة + مصيص'}`};}},
+  carp:{title:"🚪 بند النجارة",
+    ctrl:()=>counter('doors','عدد الأبواب الداخلية','اختار العدد اللي محتاجه')
+      +`<div class="q">نوع الأبواب الداخلية</div>`
+      +choice('dtype',Object.entries(CARP.types).map(([k,o])=>({v:k,t:o.t,s:(k==='custom'?'يبدأ من ':'')+n(o.p)+' جنيه للباب'})),0)
+      +(S.dtype==='wpc'?`<div class="q">تجليد للأبواب؟</div>`+choice('clad',[{v:1,t:'أيوه',s:'+ ١,٥٠٠ للباب'},{v:0,t:'لأ'}],1):'')
+      +`<div class="q">باب الشقة المصفح؟</div>`
+      +choice('arm',[{v:1,t:'أيوه',s:'١٣,٠٠٠ جنيه'},{v:0,t:'لأ'}],1),
+    calc:()=>{const C=CARP,d=doorsN(),T=C.types[S.dtype],L=[],extra=[];
+      if(d)L.push({k:`أبواب داخلية ${T.t}`,s:`${n(d)} باب × ${n(T.p)}${S.dtype==='custom'?' (يبدأ من)':''}`,v:d*T.p});
+      if(S.dtype==='wpc'&&S.clad&&d)L.push({k:'تجليد الأبواب',s:`${n(d)} باب × ${n(C.cladding)}`,v:d*C.cladding});
+      if(S.arm)L.push({k:'باب مصفح',s:'باب الشقة',v:C.armored});
+      if(S.dtype==='custom')extra.push({k:'الأبواب العمولة',s:'السعر حسب التصميم المطلوب',t:'النهائي بعد المعاينة'});
+      return {L,extra,wa:`• الأبواب الداخلية: ${d} (${T.t})${S.dtype==='wpc'?`\n• تجليد: ${S.clad?'أيوه':'لأ'}`:''}\n• باب مصفح: ${S.arm?'أيوه':'لأ'}`};}},
+  decor:{title:"✨ بند الديكور",
+    ctrl:()=>`<div class="note" style="margin:0">الديكور بند مختلف عن باقي البنود — تكلفته بتتحدد بالاتفاق معاك على كل التفاصيل (التصميم، الخامات، والمقاسات).<br><br>ضيف البند ده لو مهتم بالديكور، وهنتواصل معاك نتفق على كل حاجة.</div>`,
+    calc:()=>({L:[],extra:[{k:'الديكور',s:'التصميم والخامات والمقاسات',t:'بالاتفاق'}],wa:'• مهتم بالديكور — محتاج اتفاق على التفاصيل'})},
+  pfin:{title:"🛁 تشطيب السباكة",
+    ctrl:()=>counter('baths','عدد الحمامات','متوسط بضاعة الحمام ٢٥,٠٠٠ جنيه')
+      +`<div class="fixed"><span>المطبخ</span><span>متوسط بضاعة ١٠,٠٠٠ جنيه</span></div>`
+      +`<div class="fixed" style="padding:0"><span>أطقم وخلاطات — متوسط تكلفة البضاعة. مصنعية التركيب محسوبة في تأسيس السباكة.</span></div>`,
+    calc:()=>{const P=PFIN;
+      return {L:[{k:'بضاعة الحمامات',s:`${n(S.baths)} ${S.baths>1?'حمامات':'حمام'} × ${n(P.bath)} (متوسط)`,v:S.baths*P.bath},
+        {k:'بضاعة المطبخ',s:'متوسط',v:P.kitchen}],
+        extra:[{k:'مصنعية التركيب',s:'',t:'محسوبة في تأسيس السباكة'}],wa:`• تشطيب سباكة: ${S.baths} حمام + مطبخ`};}},
+  efin:{title:"🔌 تشطيب الكهرباء",
+    ctrl:()=>`<div class="q">الخامات</div><div class="specs"><span>مفاتيح وبرايز فينوس</span><span>مفاتيح لوحة شنايدر</span></div>`
+      +`<div class="fixed" style="padding:0 0 10px"><span>تركيب المفاتيح والبرايز ومفاتيح اللوحة — سعر ثابت لكل الشقق.</span></div>`
+      +`<div class="sec">الإضاءة (اختياري)</div>`
+      +`<div class="counter"><div class="l">عدد السبوتات<small>من ${n(EFIN.spotMin)} لـ ${n(EFIN.spotMax)} جنيه للسبوت باللمبة</small></div><input class="pin" type="number" inputmode="numeric" placeholder="العدد" value="${S.spots||''}" oninput="setPrice('spots',this.value)"></div>`
+      +`<div class="counter"><div class="l">عدد قطع الماجنيتك تراك<small>${n(EFIN.magnetic)} جنيه للقطعة — شامل كل حاجة</small></div><input class="pin" type="number" inputmode="numeric" placeholder="العدد" value="${S.mag||''}" oninput="setPrice('mag',this.value)"></div>`
+      +`<div class="q">ساوند سيستم؟</div>`+choice('snd',[{v:1,t:'أيوه',s:n(EFIN.sound)+' جنيه'},{v:0,t:'لأ'}],1),
+    calc:()=>{const E=EFIN;
+      return {L:[{k:'مصنعية تشطيب الكهرباء',s:'مقطوعية',v:E.labor},
+        {k:'مفاتيح وبرايز فينوس',s:'بضاعة',v:E.venus},
+        {k:'مفاتيح اللوحة شنايدر',s:'بضاعة',v:E.schneider}].concat(S.spots?[{k:'سبوتات باللمبة',s:`${n(S.spots)} سبوت × متوسط ${n((EFIN.spotMin+EFIN.spotMax)/2)} (من ${n(S.spots*EFIN.spotMin)} لـ ${n(S.spots*EFIN.spotMax)})`,v:S.spots*(EFIN.spotMin+EFIN.spotMax)/2}]:[]).concat(S.mag?[{k:'ماجنيتك تراك',s:`${n(S.mag)} قطعة × ${n(E.magnetic)} (شامل كل حاجة)`,v:S.mag*E.magnetic}]:[]).concat(S.snd?[{k:'ساوند سيستم',s:'',v:E.sound}]:[]),extra:[],wa:`• مفاتيح وبرايز فينوس + مفاتيح لوحة شنايدر${S.spots?`\n• سبوتات: ${S.spots}`:''}${S.mag?`\n• ماجنيتك تراك: ${S.mag} قطعة`:''}${S.snd?`\n• ساوند سيستم: أيوه`:''}`};}},
+  alum:{title:"🪟 بند الألوميتال",
+    ctrl:()=>counter('baths','عدد الحمامات','متر ألوميتال لكل حمام')
+      +`<div class="fixed"><span>المطبخ</span><span>متر ألوميتال</span></div>`
+      +`<div class="fixed" style="padding:0"><span>قطاع PS الصغير — ٤,٠٠٠ جنيه للمتر. شبابيك الغرف والريسيبشن بتبقى متركبة في الغالب، ولو مش متركبة بتتحسب على الطبيعة في المعاينة.</span></div>`,
+    calc:()=>{const A=ALUM,m=S.baths*A.perBath+A.kitchen;
+      return {L:[{k:'ألوميتال PS صغير',s:`${n(m)} م² (${n(S.baths)} ${S.baths>1?'حمامات':'حمام'} + مطبخ) × ${n(A.m2)}`,v:m*A.m2}],
+        extra:[{k:'شبابيك الغرف والريسيبشن',s:'لو مش متركبة',t:'على الطبيعة'}],
+        wa:`• ألوميتال: ${m} م² (الحمامات: ${S.baths} + مطبخ)`};}},
+  gb:{title:"💡 بند الجبس بورد",
+    ctrl:()=>`<div class="counter"><div class="l">أمتار مسطحة<small>${n(GB.flat)} جنيه للمتر — توريد وتركيب</small></div><input class="pin" type="number" inputmode="numeric" placeholder="م²" value="${S.gbF||''}" oninput="setPrice('gbF',this.value)"></div>`
+      +`<div class="counter"><div class="l">أمتار طولية<small>${n(GB.linear)} جنيه للمتر — توريد وتركيب</small></div><input class="pin" type="number" inputmode="numeric" placeholder="م.ط" value="${S.gbL||''}" oninput="setPrice('gbL',this.value)"></div>`
+      +`<div class="fixed" style="padding:0"><span>اكتب الأمتار التقريبية، والمقاسات بالظبط بتتحدد في المعاينة.</span></div>`,
+    calc:()=>{const L=[],extra=[];
+      if(S.gbF)L.push({k:'جبس بورد مسطح',s:`${n(S.gbF)} م² × ${n(GB.flat)}`,v:S.gbF*GB.flat});
+      else extra.push({k:'جبس بورد مسطح',s:`${n(GB.flat)} جنيه للمتر`,t:'اكتب الأمتار'});
+      if(S.gbL)L.push({k:'جبس بورد طولي',s:`${n(S.gbL)} م.ط × ${n(GB.linear)}`,v:S.gbL*GB.linear});
+      else extra.push({k:'جبس بورد طولي',s:`${n(GB.linear)} جنيه للمتر`,t:'اكتب الأمتار'});
+      return {L,extra,wa:`• مسطح: ${S.gbF||0} م²\n• طولي: ${S.gbL||0} م.ط`};}},
+  paint:{title:"🎨 بند الدهانات",
+    ctrl:()=>`<div class="q">مساحة أرضية الشقة</div><div class="area"><input type="number" id="areaIn" value="${S.area}" min="40" max="1000" inputmode="numeric" oninput="setArea(this.value,1)"><span>م²</span></div><input type="range" id="areaR" min="40" max="400" step="5" value="${S.area}" oninput="setArea(this.value,0)">`
+      +`<div class="q">السقف جبس بورد؟</div>`
+      +(ADDED.includes('gb')?`<div class="note" style="margin:0 0 12px">✓ ضفت بند الجبس بورد، فدهان السقف محسوب جبس بورد (× ١.٥).</div>`
+        :choice('gyp',[{v:0,t:'لأ',s:'سقف عادي'},{v:1,t:'أيوه جبس بورد',s:'السقف × ١.٥'}],1))
+      +`<div class="fixed" style="padding:0"><span>الحوائط بتتحسب مساحة الأرضية × ٢ والسقف نفس المساحة. الخامات (تأسيس وتشطيب) بتتحسب بالمتر من مساحة الأرضية.</span></div>`,
+    calc:()=>{if(ADDED.includes('gb'))S.gyp=1;const P=PAINT,A=S.area,w=A*P.wallFactor,c=A*(S.gyp?P.gypCeil:1);
+      return {L:[{k:'مصنعية دهان حوائط',s:`${n(w)} م² × ${n(P.labor)}`,v:w*P.labor},
+        {k:S.gyp?'مصنعية دهان سقف جبس بورد':'مصنعية دهان سقف',s:`${n(c)} م² × ${n(P.labor)}`,v:c*P.labor},
+        {k:'خامات الدهان (تأسيس + تشطيب)',s:`${n(A)} م² × ${n(P.matM2)}`,v:A*P.matM2}],extra:[],
+        wa:`• مساحة الأرضية: ${A} م²\n• السقف: ${S.gyp?'جبس بورد':'عادي'}`};}},
+  cer:{title:"◻️ بند السيراميك",
+    ctrl:()=>`<div class="q">مساحة الشقة (الأرضيات)</div><div class="area"><input type="number" id="areaIn" value="${S.area}" min="40" max="1000" inputmode="numeric" oninput="setArea(this.value,1)"><span>م²</span></div><input type="range" id="areaR" min="40" max="400" step="5" value="${S.area}" oninput="setArea(this.value,0)">`
+      +counter('baths','عدد الحمامات','٢٥ م² حوائط لكل حمام')
+      +`<div class="fixed"><span>المطبخ</span><span>٣٥ م² حوائط</span></div>`
+      +`<div class="q">الشقة فيها رمل؟</div>`
+      +choice('csand',[{v:1,t:'أيوه فيها',s:'مش هنجيب رمل'},{v:0,t:'لأ',s:'رمل فرش ١٠ سم'}],1)
+      +`<div class="sec" style="margin-top:6px">سعر السيراميك اللي هتختاره</div>`
+      +`<div class="counter"><div class="l">سعر متر الأرضيات<small>جنيه للمتر</small></div><input class="pin" type="number" inputmode="numeric" placeholder="مثلاً ٣٠٠" value="${S.pf||''}" oninput="setPrice('pf',this.value)"></div>`
+      +`<div class="counter"><div class="l">سعر متر الحوائط<small>جنيه للمتر</small></div><input class="pin" type="number" inputmode="numeric" placeholder="مثلاً ٢٥٠" value="${S.pw||''}" oninput="setPrice('pw',this.value)"></div>`
+      +`<div class="fixed" style="padding:0"><span>بنزوّد ١٠٪ على الأمتار للهالك والوزر. الأرضيات بتتلزق بأسمنت والحوائط بسيوتيكس يو.</span></div>`,
+    calc:()=>{const C=CER,A=S.area,W=S.baths*C.bathWall+C.kitchenWall;
+      const cb=Math.ceil(A/C.cementM2PerBag),sb=Math.ceil(W/C.sewtexM2PerBag);
+      const L=[{k:'مصنعية أرضيات',s:`${n(A)} م² × ${n(C.labor)}`,v:A*C.labor},
+        {k:'أسمنت أرضيات',s:`${n(cb)} شكارة × ${n(C.cementBag)}`,v:cb*C.cementBag},
+        {k:'مصنعية حوائط',s:`${n(W)} م² × ${n(C.labor)}`,v:W*C.labor},
+        {k:'سيوتيكس يو (لصق حوائط)',s:`${n(sb)} شكارة × ${n(C.sewtexBag)}`,v:sb*C.sewtexBag},
+        {k:'كلبسات ونظافة وتلوين وسقية',s:'مبلغ ثابت',v:C.misc},
+        {k:'ونش',s:'لطلوع السيراميك والأسمنت',v:C.winch}];
+      if(!S.csand){const m3=A*C.sandM3PerM2;L.push({k:'رمل فرش',s:`${n(m3)} م³ × ${n(C.sandM3)}`,v:m3*C.sandM3});}
+      const af=A*(1+C.waste),aw=W*(1+C.waste),extra=[];
+      if(S.pf)L.push({k:'سيراميك أرضيات',s:`${n(af)} م² (شامل ١٠٪ هالك) × ${n(S.pf)}`,v:af*S.pf});
+      else extra.push({k:'سيراميك أرضيات',s:`${n(af)} م² شامل الهالك`,t:'اكتب سعر المتر'});
+      if(S.pw)L.push({k:'سيراميك حوائط',s:`${n(aw)} م² (شامل ١٠٪ هالك) × ${n(S.pw)}`,v:aw*S.pw});
+      else extra.push({k:'سيراميك حوائط',s:`${n(aw)} م² شامل الهالك`,t:'اكتب سعر المتر'});
+      return {L,extra,wa:`• مساحة الشقة: ${A} م² — حوائط ${W} م²\n• الحمامات: ${S.baths}\n• الرمل: ${S.csand?'موجود':'هنجيبه'}\n• سعر متر الأرضيات: ${S.pf||'لسه'}\n• سعر متر الحوائط: ${S.pw||'لسه'}`};}},
+  freon:{title:"❄️ بند الفريون",
+    ctrl:()=>counter('acs','عدد التكييفات','حوالي ٨ متر مواسير لكل جهاز')
+      +`<div class="fixed" style="padding:0"><span>سعر المتر ٩٥٠ جنيه شامل المصنعية والخامات. الأمتار الفعلية بتتحدد على الطبيعة في المعاينة.</span></div>`,
+    calc:()=>{const F=FREON,m=S.acs*F.mPerUnit;
+      return {L:[{k:'تأسيس فريون (تقريبي)',s:`${n(S.acs)} جهاز × ${n(F.mPerUnit)} متر = ${n(m)} متر × ${n(F.m)}`,v:m*F.m}],extra:[],wa:`• عدد التكييفات: ${S.acs} (حوالي ${m} متر)`};}},
+  tash:{title:"🏗️ تشوينات بداية العمل",
+    ctrl:()=>`<div class="q">الشقة محتاجة محارة؟</div>`
+      +(ADDED.includes('plaster')?`<div class="note" style="margin:0 0 12px">✓ ضفت بند المحارة، فالتشوينات محسوبة على ٤ طن أسمنت (أسمنت المحارة بيطلع مع أول ونش).</div>`
+        :choice('plaster',[{v:1,t:'أيوه',s:'٤ طن أسمنت'},{v:0,t:'لأ',s:'١ طن أسمنت'}],1))
+      +`<div class="q">المشروع مشوّن رمل؟</div>`
+      +choice('sand',[{v:1,t:'أيوه مشوّن',s:'مش محتاجين رمل'},{v:0,t:'لأ',s:'٣ متر رمل'}],1)
+      +`<div class="fixed" style="padding:0"><span>كل التشوينات بتطلع مع أول ونش — وأسمنت المحارة بيطلع معاه توفيراً للسعر.</span></div>`,
+    calc:()=>{const T=TASH;if(ADDED.includes('plaster'))S.plaster=1;const tons=S.plaster?T.cementPlaster:T.cementNoPlaster;
+      const L=[{k:'الونش (أول ونش)',s:'ونش واحد لكل التشوينات',v:T.winch},
+        {k:'أسمنت',s:`${n(tons)} طن × ${n(T.cementTon)}${S.plaster?' (شامل المحارة)':''}`,v:tons*T.cementTon},
+        {k:'جبس للمصيص',s:`${n(T.gypsumBags)} شكاير × ${n(T.gypsumBag)}`,v:T.gypsumBags*T.gypsumBag},
+        {k:'أسمنت أبيض',s:'شكارة',v:T.whiteCement}];
+      if(!S.sand)L.push({k:'رمل',s:'٣ متر مع أول ونش',v:T.sand});
+      return {L,extra:[],wa:`• محارة: ${S.plaster?'أيوه':'لأ'}\n• الرمل مشوّن: ${S.sand?'أيوه':'لأ'}`};}}
+};
+
+function openItem(v){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  if(v==='menu'){$('v-menu').classList.add('active');cur=null;menu();}
+  else if(v==='sum'){$('v-sum').classList.add('active');cur=null;summary();$('bar').style.display='none';}
+  else{cur=v;$('v-item').classList.add('active');$('iTitle').textContent=ITEMS[v].title;$('iCtrl').innerHTML=ITEMS[v].ctrl();calc();$('bar').style.display='none';}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function cost(k){const r=ITEMS[k].calc();return {r,sub:r.L.reduce((a,l)=>a+l.v,0)};}
+function addItem(){if(!ADDED.includes(cur))ADDED.push(cur);if(cur==='plaster')S.plaster=1;if(cur==='gb')S.gyp=1;openItem('menu');}
+function remItem(){const i=ADDED.indexOf(cur);if(i>-1)ADDED.splice(i,1);openItem('menu');}
+function menu(){
+  document.querySelectorAll('.tile[data-k]').forEach(t=>{const k=t.dataset.k,on=ADDED.includes(k);t.classList.toggle('added',on);
+    const b=t.querySelector('.badge');b.textContent=on?'✓ مضاف':'متاح';
+    let a=t.querySelector('.amt');if(!a){a=document.createElement('span');a.className='amt';t.appendChild(a);}a.textContent=on?(k==='decor'?'بالاتفاق':n(cost(k).sub)+' ج'):'';});
+  const tot=ADDED.reduce((s,k)=>s+cost(k).sub,0);
+  $('bar').style.display=ADDED.length?'block':'none';
+  $('barT').innerHTML=`${n(ADDED.length)} ${ADDED.length>2?'بنود':'بند'} — تكلفة فعلية<b>${n(tot)} جنيه</b>`;
+}
+const LEAD={name:'',phone:'',loc:''};
+function toEn(s){return String(s).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d));}
+function sendSheet(data){if(!SHEET_URL)return;try{fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(data)}).catch(()=>{});}catch(e){}}
+function gateSubmit(){
+  const name=$('gName').value.trim(),phone=toEn($('gPhone').value).replace(/[^0-9]/g,''),loc=$('gLoc').value.trim();
+  if(!/^01[0125][0-9]{8}$/.test(phone)){$('gErr').textContent='اكتب رقم موبايل مصري صحيح (١١ رقم يبدأ بـ 01)';return;}
+  if(!loc){$('gErr').textContent='اكتب مكان الشقة';return;}
+  $('gErr').textContent='';Object.assign(LEAD,{name,phone,loc});
+  try{localStorage.setItem('lh_lead',JSON.stringify(LEAD));}catch(e){}
+  sendSheet({type:'تسجيل',name,phone,loc});
+  if(name)$('name').value=name;$('loc').value=loc;
+  openItem('menu');
+}
+function logEstimate(){
+  const order=['tash','plumb','elec','freon','plaster','cer','gb','paint','carp','alum','efin','pfin','decor'].filter(k=>ADDED.includes(k));
+  let sub=0;const items=order.map(k=>{const c=cost(k);sub+=c.sub;return ITEMS[k].title.replace(/^\S+\s/,'')+(k==='decor'?' (بالاتفاق)':': '+Math.round(c.sub));}).join(' | ');
+  sendSheet({type:'طلب معاينة',name:$('name').value.trim()||LEAD.name,phone:LEAD.phone,loc:$('loc').value.trim()||LEAD.loc,items,cost:Math.round(sub),total:Math.round(sub*(1+SUP_MIN))+' - '+Math.round(sub*(1+SUP_MAX))});
+}
+function summary(){
+  if(!ADDED.length){$('sRows').innerHTML='<div class="empty">لسه مضفتش أي بند — ارجع للبنود وضيف اللي محتاجه</div>';$('sTot').textContent='—';$('wa').classList.add('dis');return;}
+  const order=['tash','plumb','elec','freon','plaster','cer','gb','paint','carp','alum','efin','pfin','decor'].filter(k=>ADDED.includes(k));
+  let sub=0,h='',wa='';
+  order.forEach(k=>{const c=cost(k);sub+=c.sub;const t=ITEMS[k].title;
+    h+=`<div class="row"><span class="k">${t}<small><a href="#" onclick="openItem('${k}');return false" style="color:var(--or)">تعديل</a></small></span><span class="v">${k==='decor'?'بالاتفاق':n(c.sub)+' ج'}</span></div>`;
+    wa+=`\n*${t.replace(/^\S+\s/,'')}* — ${k==='decor'?'بالاتفاق':Math.round(c.sub).toLocaleString('en')+' ج'}\n${c.r.wa}`;});
+  const fLo=sub*SUP_MIN,fHi=sub*SUP_MAX;
+  h+=`<div class="row sub"><span class="k">إجمالي التكلفة الفعلية</span><span class="v">${n(sub)} ج</span></div>`;
+  h+=`<div class="row fee"><span class="k">نسبة الإشراف<small>من ١٥٪ لـ ٢٠٪</small></span><span class="v">${n5(fLo)} – ${n5(fHi)} ج</span></div>`;
+  $('sRows').innerHTML=h;
+  $('sTot').innerHTML=`${n5(sub+fLo)} – ${n5(sub+fHi)} <span style="font-size:15px">جنيه</span>`;
+  const nm=$('name').value.trim(),loc=$('loc').value.trim();
+  $('wa').classList.toggle('dis',!nm);
+  const msg=`أهلاً LOGIC HOME 👋\nأنا ${nm}${loc?` من ${loc}`:''}${LEAD.phone?`\nرقمي: ${LEAD.phone}`:''}\nحسبت تكلفة شقتي على الحاسبة وعايز معاينة:\n${wa}\n\n• إجمالي التكلفة الفعلية: ${Math.round(sub).toLocaleString('en')} جنيه\n• الإجمالي شامل الإشراف: ${Math.round(sub+fLo).toLocaleString('en')} – ${Math.round(sub+fHi).toLocaleString('en')} جنيه`;
+  $('wa').href=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+}
+function setArea(v,fromIn){v=+v;if(!v||v<1)return;v=Math.min(2000,v);S.area=v;if(fromIn)$('areaR').value=v;else $('areaIn').value=v;calc();}
+function doorsN(){return S.doors;}
+function setPrice(k,v){S[k]=Math.max(0,+v||0);calc();}
+function chg(k,d){S[k]=Math.min(LIM[k][1],Math.max(LIM[k][0],S[k]+d));calc();}
+function setv(k,v){S[k]=v;$('iCtrl').innerHTML=ITEMS[cur].ctrl();calc();}
+
+function calc(){
+  if(!cur)return;
+  document.querySelectorAll('[id^=c_]').forEach(el=>{const k=el.id.slice(2);el.textContent=(k==='doors'?doorsN():S[k]).toLocaleString('ar-EG');});
+  const it=ITEMS[cur],r=it.calc(),sub=r.L.reduce((a,l)=>a+l.v,0),fLo=sub*SUP_MIN,fHi=sub*SUP_MAX;
+  let h=r.L.map(l=>`<div class="row"><span class="k">${l.k}<small>${l.s}</small></span><span class="v">${n(l.v)} ج</span></div>`).join('');
+  h+=r.extra.map(l=>`<div class="row muted"><span class="k">${l.k}<small>${l.s}</small></span><span class="v">${l.t}</span></div>`).join('');
+  if(cur!=="decor"){h+=`<div class="row sub"><span class="k">إجمالي التكلفة الفعلية</span><span class="v">${n(sub)} ج</span></div>`;
+h+=`<div class="row fee"><span class="k">نسبة الإشراف<small>من ١٥٪ لـ ٢٠٪</small></span><span class="v">${n5(fLo)} – ${n5(fHi)} ج</span></div>`;}
+  $('rows').innerHTML=h;
+  document.querySelector('#v-item .total').style.display=cur==='decor'?'none':'block';
+  $('totL').textContent=`إجمالي ${it.title.replace(/^\S+\s/,'')} شامل الإشراف`;
+  $('tot').innerHTML=`${n5(sub+fLo)} – ${n5(sub+fHi)} <span style="font-size:15px">جنيه</span>`;
+  const on=ADDED.includes(cur);
+  $('addBtn').textContent=on?'✓ حفظ التعديل والرجوع للبنود':'＋ ضيف البند للإجمالي';
+  $('remBtn').style.display=on?'block':'none';
+}
+try{const s=JSON.parse(localStorage.getItem('lh_lead')||'null');if(s&&s.phone){Object.assign(LEAD,s);if(s.name)$('name').value=s.name;$('loc').value=s.loc||'';openItem('menu');}}catch(e){}
+</script>
+</body>
+</html>
